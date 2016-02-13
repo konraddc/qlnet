@@ -1,5 +1,5 @@
-#ifndef NODE_H
-#define NODE_H
+#ifndef QLNET_NODE_H_
+#define QLNET_NODE_H_
 
 namespace qlnet {
 
@@ -11,4 +11,4 @@ public:
 
 } // namespace qlnet
 
-#endif // NODE_H
+#endif // QLNET_NODE_H_
