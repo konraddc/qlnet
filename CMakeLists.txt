@@ -5,6 +5,8 @@ set(SRC_LIST
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/node.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/node.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/pattern.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/pattern.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/patternset.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/patternset.cpp
 )
@@ -12,6 +14,8 @@ set(SRC_LIST
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
+# disable the inline warning; TODO maybe use different solution for this (.inc files or something)
+set_property(TARGET ${PROJECT_NAME} APPEND_STRING PROPERTY COMPILE_FLAGS -Wno-undefined-inline)
 
 set(PROJECT_INCLUDE_DIR include)
 include_directories("${PROJECT_INCLUDE_DIR}")
