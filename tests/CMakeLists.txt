@@ -10,6 +10,8 @@ set(SRC_LIST
     ${CMAKE_CURRENT_SOURCE_DIR}/${SRC_PATH}/patternset.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/test_pattern.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/test_patternset.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/${SRC_PATH}/node.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/test_node.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})

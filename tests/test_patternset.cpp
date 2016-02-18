@@ -94,6 +94,7 @@ TEST_CASE( "PatternSet<float> \"float_test\"", "[patternset]" ) {
     REQUIRE( pattern_set.input_size() == 3 );
     REQUIRE( pattern_set.output_size() == 2 );
 
+    // can also use Approx(-0123).epsilon(0.001) if needed;
     CHECK( pattern_set[0].input_at(0) ==  -0.123f);
     CHECK( pattern_set[0].input_at(1) ==   0.456f);
     CHECK( pattern_set[0].input_at(2) ==   0.789f);
