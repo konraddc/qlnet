@@ -3,6 +3,8 @@ project(qlnet)
 
 set(SRC_LIST
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/nodeoutput.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/nodeoutput.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/node.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/node.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/pattern.h

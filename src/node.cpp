@@ -4,17 +4,6 @@
 
 namespace  qlnet {
 
-template<typename T>
-NodeOutput<T>::NodeOutput(T& value_ref) noexcept
-    : value_ptr_(std::addressof(value_ref))
-{}
-
-template<typename T>
-NodeOutput<T>::operator T&() const noexcept
-{
-    return *value_ptr_;
-}
-
 template<typename T, T AFunc(T)>
 Node<T, AFunc>::Node() noexcept
     : potential_(T()),
@@ -22,23 +11,11 @@ Node<T, AFunc>::Node() noexcept
       inputs_(nullptr)
 {}
 
-//template<typename T, T AFunc(T)>
-//T Node<T, AFunc>::potential() const
-//{
-//    return potential_;
-//}
-
-//template<typename T, T AFunc(T)>
-//void Node<T, AFunc>::set_potential(T potential)
-//{
-//    potential_ = potential;
-//}
-
-//template<typename T, T AFunc(T)>
-//T Node<T, AFunc>::response() const
-//{
-//    return response_;
-//}
+template<typename T, T AFunc(T)>
+NodeOutput<T> Node<T, AFunc>::response() const
+{
+    return response_;
+}
 
 template<typename T, T AFunc(T)>
 void Node<T, AFunc>::update()
@@ -83,9 +60,5 @@ void Node<T, AFunc>::update()
 
     response_ = AFunc(potential_);
 }
-
-template class NodeOutput<float>;
-template class NodeOutput<double>;
-template class NodeOutput<long double>;
 
 } // namespace qlnet
