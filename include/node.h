@@ -2,13 +2,15 @@
 #define QLNET_NODE_H_
 
 #include <cstddef>
+#include <cassert>
 #include <vector>
+#include <iostream>
 
 #include "nodeoutput.h"
 
 namespace qlnet {
 
-template<typename T, T AFunc(T)>
+template<typename T, typename TFunc>
 class Node
 {
 public:
@@ -28,7 +30,7 @@ public:
      * @brief connect
      * @param outputs
      */
-    inline void connect(std::vector<NodeOutput<T>>* outputs);
+    void connect(std::vector<NodeOutput<T>>* outputs, T initial_weight = 0);
 
     /**
      * @brief update node potential and calculate response
@@ -36,11 +38,14 @@ public:
     void update();
 
 private:
-    T potential_;
+    T net_;
     T response_;
-    std::vector<NodeInput<T>>* inputs_; // TODO: consider only one input layer for now
+    std::vector<NodeInput<T>>* inputs_; // TODO: only one input layer for now
     std::vector<T> weights_;
 };
+
+// template definitions
+#include "node.inc"
 
 } // namespace qlnet
 

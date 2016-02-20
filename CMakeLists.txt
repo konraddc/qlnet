@@ -6,7 +6,7 @@ set(SRC_LIST
     ${CMAKE_CURRENT_SOURCE_DIR}/include/nodeoutput.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/nodeoutput.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/node.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/node.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/node.inc
     ${CMAKE_CURRENT_SOURCE_DIR}/include/pattern.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/pattern.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/patternset.h

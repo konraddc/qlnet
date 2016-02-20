@@ -75,5 +75,6 @@ template class PatternSet<int32_t>;
 template class PatternSet<int64_t>;
 template class PatternSet<float>;
 template class PatternSet<double>;
+template class PatternSet<long double>;
 
 } // namespace qlnet

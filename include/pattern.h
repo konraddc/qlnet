@@ -26,35 +26,35 @@ public:
      * @param input_value
      * @return false if inputs are already full
      */
-    inline bool push_input(input_type input_value);
+    bool push_input(input_type input_value);
     /**
      * @brief Append an output value
      * @param output_value
      * @return false if output are already full
      */
-    inline bool push_output(input_type output_value);
+    bool push_output(input_type output_value);
     /**
      * @brief input_at get i-th element
      * @param i index of element
      * @return input element at index i
      */
-    inline const input_type& input_at(std::size_t i) const;
+    const input_type& input_at(std::size_t i) const;
     /**
      * @brief output_at get i-th element
      * @param i index of element
      * @return output element at index i
      */
-    inline const output_type& output_at(std::size_t i) const;
+    const output_type& output_at(std::size_t i) const;
     /**
      * @brief input_size
      * @return number of input elements
      */
-    inline std::size_t input_size() const;
+    std::size_t input_size() const;
     /**
      * @brief output_size
      * @return number of output elements
      */
-    inline std::size_t output_size() const;
+    std::size_t output_size() const;
 
 private:
     std::vector<input_type> input_;

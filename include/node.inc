@@ -1,24 +1,25 @@
-#include "node.h"
-
-#include <iostream>
-
-namespace  qlnet {
-
-template<typename T, T AFunc(T)>
-Node<T, AFunc>::Node() noexcept
-    : potential_(T()),
+template<typename T, typename TFunc>
+Node<T, TFunc>::Node() noexcept
+    : net_(T()),
       response_(T()),
       inputs_(nullptr)
 {}
 
-template<typename T, T AFunc(T)>
-NodeOutput<T> Node<T, AFunc>::response() const
+template<typename T, typename TFunc>
+NodeOutput<T> Node<T, TFunc>::response() const
 {
     return response_;
 }
 
-template<typename T, T AFunc(T)>
-void Node<T, AFunc>::update()
+template<typename T, typename TFunc>
+void Node<T, TFunc>::connect(std::vector<NodeOutput<T>>* outputs, T initial_weight)
+{
+    inputs_ = outputs;
+    weights_.resize(outputs->size(), initial_weight);
+}
+
+template<typename T, typename TFunc>
+void Node<T, TFunc>::update()
 {
     if (inputs_ == nullptr) {
         std::cerr << __PRETTY_FUNCTION__ << " cannot update a node without initialized inputs\n";
@@ -31,7 +32,7 @@ void Node<T, AFunc>::update()
     auto input_it = (*inputs_).end();
 
     auto update_weight = [&]() {
-        potential_ += *--weight_it * *--input_it;
+        net_ += *--weight_it * *--input_it;
     };
 
     switch  (size % 8) {
@@ -55,10 +56,8 @@ void Node<T, AFunc>::update()
         } while (--n > 0);
     }
 
-    cassert(weight_it == weights_.begin());
-    cassert(input_it == (*inputs_).begin());
+    assert(weight_it == weights_.begin());
+    assert(input_it == (*inputs_).begin());
 
-    response_ = AFunc(potential_);
+    response_ = TFunc::eval(net_);
 }
-
-} // namespace qlnet
