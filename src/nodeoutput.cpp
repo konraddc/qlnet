@@ -2,6 +2,8 @@
 
 #include <memory>
 
+#include <iostream>
+
 namespace  qlnet {
 
 template<typename T>

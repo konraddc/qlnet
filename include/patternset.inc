@@ -1,14 +1,3 @@
-#include "patternset.h"
-
-#include <fstream>
-#include <iostream>
-
-namespace qlnet {
-
-template<typename TInput, typename TOutput>
-PatternSet<TInput,TOutput>::PatternSet()
-{}
-
 template<typename TInput, typename TOutput>
 bool PatternSet<TInput,TOutput>::read(std::string input)
 {
@@ -69,12 +58,3 @@ auto PatternSet<TInput,TOutput>::operator[](int i) const -> const pattern_type&
 {
     return patterns_.at(i);
 }
-
-// Explicit template instantiations
-template class PatternSet<int32_t>;
-template class PatternSet<int64_t>;
-template class PatternSet<float>;
-template class PatternSet<double>;
-template class PatternSet<long double>;
-
-} // namespace qlnet

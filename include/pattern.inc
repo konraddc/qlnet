@@ -1,11 +1,5 @@
-#include "pattern.h"
-
-#include <iostream>
-
-namespace qlnet {
-
 template<typename TInput, typename TOutput>
-Pattern<TInput, TOutput>::Pattern(size_t input_size, size_t output_size)
+Pattern<TInput,TOutput>::Pattern(size_t input_size, size_t output_size)
     : input_size_(input_size), output_size_(output_size)
 {
     input_.reserve(input_size);
@@ -13,7 +7,7 @@ Pattern<TInput, TOutput>::Pattern(size_t input_size, size_t output_size)
 }
 
 template<typename TInput, typename TOutput>
-bool Pattern<TInput, TOutput>::push_input(input_type input_value)
+bool Pattern<TInput,TOutput>::push_input(input_type input_value)
 {
     if (input_.size() < input_size_) {
         input_.push_back(input_value);
@@ -26,7 +20,7 @@ bool Pattern<TInput, TOutput>::push_input(input_type input_value)
 }
 
 template<typename TInput, typename TOutput>
-bool Pattern<TInput, TOutput>::push_output(input_type output_value)
+bool Pattern<TInput,TOutput>::push_output(output_type output_value)
 {
     if (output_.size() < output_size_) {
         output_.push_back(output_value);
@@ -36,6 +30,18 @@ bool Pattern<TInput, TOutput>::push_output(input_type output_value)
     }
 
     return true;
+}
+
+template<typename TInput, typename TOutput>
+auto Pattern<TInput,TOutput>::input() const -> const std::vector<input_type>&
+{
+    return input_;
+}
+
+template<typename TInput, typename TOutput>
+auto Pattern<TInput,TOutput>::output() const -> const std::vector<output_type>&
+{
+    return output_;
 }
 
 template<typename TInput, typename TOutput>
@@ -61,12 +67,3 @@ std::size_t Pattern<TInput,TOutput>::output_size() const
 {
     return output_.size();
 }
-
-// Explicit template instantiations
-template class Pattern<int32_t>;
-template class Pattern<int64_t>;
-template class Pattern<float>;
-template class Pattern<double>;
-template class Pattern<long double>;
-
-} // namespace qlnet

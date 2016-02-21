@@ -12,10 +12,10 @@ NodeOutput<T> Node<T, TFunc>::response() const
 }
 
 template<typename T, typename TFunc>
-void Node<T, TFunc>::connect(std::vector<NodeOutput<T>>* outputs, T initial_weight)
+void Node<T, TFunc>::connect(const std::vector<NodeOutput<T>> &outputs, T initial_weight)
 {
-    inputs_ = outputs;
-    weights_.resize(outputs->size(), initial_weight);
+    inputs_ = std::addressof(outputs);
+    weights_.resize(outputs.size(), initial_weight);
 }
 
 template<typename T, typename TFunc>
@@ -29,7 +29,7 @@ void Node<T, TFunc>::update()
     std::size_t size = weights_.size();
     std::size_t n = (size + 7) / 8;
     auto weight_it = weights_.end();
-    auto input_it = (*inputs_).end();
+    auto input_it = inputs_->end();
 
     auto update_weight = [&]() {
         net_ += *--weight_it * *--input_it;
@@ -57,7 +57,24 @@ void Node<T, TFunc>::update()
     }
 
     assert(weight_it == weights_.begin());
-    assert(input_it == (*inputs_).begin());
+    assert(input_it == inputs_->begin());
 
     response_ = TFunc::eval(net_);
+}
+
+template<typename T>
+InputNode<T>::InputNode() noexcept
+    : output_(T())
+{}
+
+template<typename T>
+void InputNode<T>::set_output(T output)
+{
+    output_ = output;
+}
+
+template<typename T>
+NodeOutput<T> InputNode<T>::output() const
+{
+    return output_;
 }

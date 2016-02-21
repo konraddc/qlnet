@@ -2,6 +2,8 @@
 #define QLNET_PATTERNSET_H_
 
 #include <vector>
+#include <fstream>
+#include <iostream>
 
 #include "pattern.h"
 
@@ -13,7 +15,7 @@ class PatternSet
 public:
     typedef Pattern<TInput,TOutput> pattern_type;
 
-    PatternSet();
+    PatternSet() noexcept = default;
 
     /**
      * @brief Read patters from file
@@ -52,6 +54,9 @@ private:
     std::size_t input_size_;
     std::size_t output_size_;
 };
+
+// template definitions
+#include "patternset.inc"
 
 } // namespace qlnet
 

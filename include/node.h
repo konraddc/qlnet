@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "nodeoutput.h"
+#include "transferfunc.h"
 
 namespace qlnet {
 
@@ -15,8 +16,7 @@ class Node
 {
 public:
     /**
-     * @brief defaulted constructor
-     * @param input_size number of inputs
+     * @brief constructor
      */
     Node() noexcept;
 
@@ -27,10 +27,10 @@ public:
     NodeOutput<T> response() const;
 
     /**
-     * @brief connect
-     * @param outputs
+     * @brief assign input
+     * @param outputs from other nodes
      */
-    void connect(std::vector<NodeOutput<T>>* outputs, T initial_weight = 0);
+    void connect(const std::vector<NodeOutput<T>> &outputs, T initial_weight = 0);
 
     /**
      * @brief update node potential and calculate response
@@ -40,8 +40,33 @@ public:
 private:
     T net_;
     T response_;
-    std::vector<NodeInput<T>>* inputs_; // TODO: only one input layer for now
+    const std::vector<NodeOutput<T>>* inputs_; // TODO: only one input layer for now
     std::vector<T> weights_;
+};
+
+template<typename T>
+class InputNode
+{
+public:
+    /**
+     * @brief constructor
+     */
+    InputNode() noexcept;
+
+    /**
+     * @brief set_input
+     * @param input
+     */
+    void set_output(T output);
+
+    /**
+     * @brief output
+     * @return node output
+     */
+    NodeOutput<T> output() const;
+
+private:
+    T output_;
 };
 
 // template definitions
