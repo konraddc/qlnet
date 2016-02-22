@@ -19,7 +19,38 @@ void InputLayer<T>::set_input(const std::vector<T>& input)
 }
 
 template<typename T>
-const std::vector<NodeOutput<T>>& InputLayer<T>::outputs() const
+auto InputLayer<T>::outputs() const -> const std::vector<NodeOutputRef<T>>&
 {
     return outputs_;
+}
+
+template<typename T, typename TFunc>
+Layer<T, TFunc>::Layer(std::size_t node_count)
+    : nodes_(node_count)
+{
+    for (const Node<T, TFunc>&node : nodes_) {
+        outputs_.push_back(node.output());
+    }
+}
+
+template<typename T, typename TFunc>
+void Layer<T, TFunc>::connect(const std::vector<NodeOutputRef<T>> &outputs, T initial_weight)
+{
+    for (Node<T, TFunc>&node : nodes_) {
+        node.connect(outputs, initial_weight);
+    }
+}
+
+template<typename T, typename TFunc>
+auto Layer<T, TFunc>::outputs() const -> const std::vector<NodeOutputRef<T>>&
+{
+    return outputs_;
+}
+
+template<typename T, typename TFunc>
+void Layer<T, TFunc>::update()
+{
+    for (Node<T, TFunc>&node : nodes_) {
+        node.update();
+    }
 }

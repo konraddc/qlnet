@@ -1,18 +1,18 @@
 template<typename T, typename TFunc>
 Node<T, TFunc>::Node() noexcept
     : net_(T()),
-      response_(T()),
+      output_(T()),
       inputs_(nullptr)
 {}
 
 template<typename T, typename TFunc>
-NodeOutput<T> Node<T, TFunc>::response() const
+NodeOutputRef<T> Node<T, TFunc>::output() const
 {
-    return response_;
+    return output_;
 }
 
 template<typename T, typename TFunc>
-void Node<T, TFunc>::connect(const std::vector<NodeOutput<T>> &outputs, T initial_weight)
+void Node<T, TFunc>::connect(const std::vector<NodeOutputRef<T>> &outputs, T initial_weight)
 {
     inputs_ = std::addressof(outputs);
     weights_.resize(outputs.size(), initial_weight);
@@ -59,7 +59,7 @@ void Node<T, TFunc>::update()
     assert(weight_it == weights_.begin());
     assert(input_it == inputs_->begin());
 
-    response_ = TFunc::eval(net_);
+    output_ = TFunc::eval(net_);
 }
 
 template<typename T>
@@ -74,7 +74,7 @@ void InputNode<T>::set_output(T output)
 }
 
 template<typename T>
-NodeOutput<T> InputNode<T>::output() const
+NodeOutputRef<T> InputNode<T>::output() const
 {
     return output_;
 }

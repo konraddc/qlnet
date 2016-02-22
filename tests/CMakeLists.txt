@@ -4,7 +4,7 @@ project(qlnet-tests)
 set(SRC_PATH "../src")
 
 set(SRC_LIST
-    ${CMAKE_CURRENT_SOURCE_DIR}/catch.hpp
+#    ${CMAKE_CURRENT_SOURCE_DIR}/catch.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/test_main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/test_pattern.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/test_patternset.cpp

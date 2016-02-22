@@ -6,13 +6,13 @@
 
 TEST_CASE( "NodeOutput", "[node]" ) {
     float value = 2.42f;
-    qlnet::NodeOutput<float> node_output(value);
+    qlnet::NodeOutputRef<float> node_output(value);
     CHECK( node_output == value );
 
     value = 1.56f;
     CHECK( node_output == value );
 
-    qlnet::NodeOutput<float> node_output2 = node_output;
+    qlnet::NodeOutputRef<float> node_output2 = node_output;
     CHECK( node_output2 == node_output );
 
     float value_2 = 6.11f;
@@ -22,15 +22,15 @@ TEST_CASE( "NodeOutput", "[node]" ) {
     CHECK( node_output2 != value_2 );
 }
 
-TEST_CASE( "Node::update", "[node]" ) {
-    std::vector<qlnet::NodeOutput<float>> inputs;
+TEST_CASE( "Node", "[node]" ) {
+    std::vector<qlnet::NodeOutputRef<float>> inputs;
     float f1 = 1.f, f2 = 2.f, f3 = 3.f;
     inputs.push_back(f1);
     inputs.push_back(f2);
     inputs.push_back(f3);
 
     qlnet::Node<float, qlnet::TransferFunc<float>::Linear> node;
-    qlnet::NodeOutput<float> node_output = node.response();
+    qlnet::NodeOutputRef<float> node_output = node.output();
 
     node.update();
     REQUIRE( node_output == 0.0f );
@@ -44,7 +44,7 @@ TEST_CASE( "Node::update", "[node]" ) {
 
 TEST_CASE( "InputNode", "[node]" ) {
     qlnet::InputNode<float> input_node;
-    qlnet::NodeOutput<float> node_output = input_node.output();
+    qlnet::NodeOutputRef<float> node_output = input_node.output();
     CHECK( node_output == 0 );
 
     input_node.set_output(3.23f);

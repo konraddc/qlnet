@@ -24,13 +24,13 @@ public:
      * @brief output
      * @return node output
      */
-    NodeOutput<T> response() const;
+    NodeOutputRef<T> output() const;
 
     /**
      * @brief assign input
      * @param outputs from other nodes
      */
-    void connect(const std::vector<NodeOutput<T>> &outputs, T initial_weight = 0);
+    void connect(const std::vector<NodeOutputRef<T>> &outputs, T initial_weight = 0);
 
     /**
      * @brief update node potential and calculate response
@@ -39,8 +39,8 @@ public:
 
 private:
     T net_;
-    T response_;
-    const std::vector<NodeOutput<T>>* inputs_; // TODO: only one input layer for now
+    T output_;
+    const std::vector<NodeOutputRef<T>>* inputs_; // TODO: only one input layer for now
     std::vector<T> weights_;
 };
 
@@ -63,7 +63,7 @@ public:
      * @brief output
      * @return node output
      */
-    NodeOutput<T> output() const;
+    NodeOutputRef<T> output() const;
 
 private:
     T output_;

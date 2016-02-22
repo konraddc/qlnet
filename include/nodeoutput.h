@@ -9,30 +9,30 @@ namespace qlnet {
  * the Nodes' response value
  */
 template<typename T>
-class NodeOutput
+class NodeOutputRef
 {
 public:
     /**
      * @brief constructor
      * @param value_ref
      */
-    NodeOutput(const T& value_ref) noexcept;
+    NodeOutputRef(const T& value_ref) noexcept;
 
     /**
      * @brief deleted constructor
      * don't wrap rvalues
      */
-    NodeOutput(T&&) = delete;
+    NodeOutputRef(T&&) = delete;
 
     /**
      * @brief defaulted copy constructor
      */
-    NodeOutput(const NodeOutput&) noexcept = default;
+    NodeOutputRef(const NodeOutputRef&) noexcept = default;
 
     /**
      * @brief defaulted equal operator
      */
-    NodeOutput& operator=(const NodeOutput&) noexcept = default;
+    NodeOutputRef& operator=(const NodeOutputRef&) noexcept = default;
 
     /**
      * @brief accesing the value
