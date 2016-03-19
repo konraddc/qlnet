@@ -4,6 +4,28 @@
 #include "nodeoutput.h"
 #include "transferfunc.h"
 
+TEST_CASE( "Node init", "[node]" ) {
+    float f1 = 1.f, f2 = 2.f, f3 = 3.f;
+    qlnet::NodeOutputRefs<float> inputs = { f1, f2, f3 };
+
+    {
+        qlnet::Node<float, qlnet::TransferFunc<float>::Linear> node;
+        qlnet::NodeOutputRef<float> node_output = node.output();
+        node.connect(inputs);
+        node.init_weights({1, 2, 3});
+        node.update();
+        REQUIRE( node_output == 14.f );
+    }
+
+    {
+        qlnet::Node<float, qlnet::TransferFunc<float>::Linear> node({ 3, 2, 1 });
+        qlnet::NodeOutputRef<float> node_output = node.output();
+        node.connect(inputs);
+        node.update();
+        REQUIRE( node_output == 10.f );
+    }
+}
+
 TEST_CASE( "NodeOutput", "[node]" ) {
     float value = 2.42f;
     qlnet::NodeOutputRef<float> node_output(value);
@@ -23,11 +45,8 @@ TEST_CASE( "NodeOutput", "[node]" ) {
 }
 
 TEST_CASE( "Node", "[node]" ) {
-    std::vector<qlnet::NodeOutputRef<float>> inputs;
     float f1 = 1.f, f2 = 2.f, f3 = 3.f;
-    inputs.push_back(f1);
-    inputs.push_back(f2);
-    inputs.push_back(f3);
+    qlnet::NodeOutputRefs<float> inputs = { f1, f2, f3 };
 
     qlnet::Node<float, qlnet::TransferFunc<float>::Linear> node;
     qlnet::NodeOutputRef<float> node_output = node.output();
@@ -35,7 +54,8 @@ TEST_CASE( "Node", "[node]" ) {
     node.update();
     REQUIRE( node_output == 0.0f );
 
-    node.connect(inputs, 1);
+    node.connect(inputs);
+    node.init_weights({ 1, 1, 1 });
     REQUIRE( node_output == 0.0f );
 
     node.update();

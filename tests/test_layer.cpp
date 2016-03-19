@@ -17,21 +17,22 @@ TEST_CASE( "InputLayer", "[layer]" ) {
 
     qlnet::Node<float, qlnet::TransferFunc<float>::Identity> node;
     qlnet::NodeOutputRef<float> node_output = node.output();
-    node.connect(input_layer.outputs(), 1);
-    node.update();
+    node.connect(input_layer.outputs());
+    node.init_weights({ 1, 1, 1 });
 
+    node.update();
     REQUIRE( node_output == 6.f );
 }
 
 TEST_CASE( "Layer", "[layer]" ) {
-    std::vector<qlnet::NodeOutputRef<float>> outputs;
     float f1 = 2.f, f2 = 3.f, f3 = 4.f;
-    outputs.push_back(f1);
-    outputs.push_back(f2);
-    outputs.push_back(f3);
+    qlnet::NodeOutputRefs<float> outputs = { f1, f2, f3 };
 
     qlnet::Layer<float, qlnet::TransferFunc<float>::Identity> hidden_layer(2);
-    hidden_layer.connect(outputs, 1);
+    hidden_layer.connect(outputs);
+    for (auto &node : hidden_layer.nodes()) {
+        node.init_weights({1, 1, 1});
+    }
     hidden_layer.update();
 
     CHECK( hidden_layer.outputs().at(0) == 9.f );

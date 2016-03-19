@@ -19,7 +19,7 @@ void InputLayer<T>::set_input(const std::vector<T>& input)
 }
 
 template<typename T>
-auto InputLayer<T>::outputs() const -> const std::vector<NodeOutputRef<T>>&
+auto InputLayer<T>::outputs() const -> const NodeOutputRefs<T>&
 {
     return outputs_;
 }
@@ -28,29 +28,35 @@ template<typename T, typename TFunc>
 Layer<T, TFunc>::Layer(std::size_t node_count)
     : nodes_(node_count)
 {
-    for (const Node<T, TFunc>&node : nodes_) {
+    for (const node_type&node : nodes_) {
         outputs_.push_back(node.output());
     }
 }
 
 template<typename T, typename TFunc>
-void Layer<T, TFunc>::connect(const std::vector<NodeOutputRef<T>> &outputs, T initial_weight)
+void Layer<T, TFunc>::connect(const NodeOutputRefs<T> &outputs)
 {
-    for (Node<T, TFunc>&node : nodes_) {
-        node.connect(outputs, initial_weight);
+    for (node_type &node : nodes_) {
+        node.connect(outputs);
     }
 }
 
 template<typename T, typename TFunc>
-auto Layer<T, TFunc>::outputs() const -> const std::vector<NodeOutputRef<T>>&
+auto Layer<T, TFunc>::outputs() const -> const NodeOutputRefs<T>&
 {
     return outputs_;
 }
 
 template<typename T, typename TFunc>
+auto Layer<T, TFunc>::nodes() -> std::deque<node_type>&
+{
+    return nodes_;
+}
+
+template<typename T, typename TFunc>
 void Layer<T, TFunc>::update()
 {
-    for (Node<T, TFunc>&node : nodes_) {
+    for (node_type &node : nodes_) {
         node.update();
     }
 }

@@ -2,7 +2,9 @@
 #define QLNET_LAYER_H_
 
 #include <deque>
+#include <functional>
 
+#include "nodeoutput.h"
 #include "node.h"
 
 namespace qlnet {
@@ -17,6 +19,7 @@ public:
      */
     InputLayer(std::size_t input_size);
 
+    // TODO: use Pattern etc. as input
     /**
      * @brief set_input
      * @param input new input
@@ -27,10 +30,13 @@ public:
      * @brief outputs
      * @return vector of node output reference wrappers
      */
-    const std::vector<NodeOutputRef<T>>& outputs() const;
+    const NodeOutputRefs<T>& outputs() const;
 
 private:
-    std::vector<NodeOutputRef<T>> outputs_;
+    NodeOutputRefs<T> outputs_;
+    // TODO: consider a dynamic array instead
+    // Any container that doesn't reallocate elements is good
+    // deque is big for really small amount of nodes
     std::deque<InputNode<T>> nodes_;
 };
 
@@ -38,6 +44,8 @@ template<typename T, typename TFunc>
 class Layer
 {
 public:
+    typedef Node<T, TFunc> node_type;
+
     /**
      * @brief constructor
      * @param input_size number of input elements
@@ -45,16 +53,22 @@ public:
     Layer(std::size_t node_count);
 
     /**
-     * @brief assign inputs
+     * @brief assign input layer
      * @param outputs from other layer
      */
-    void connect(const std::vector<NodeOutputRef<T>> &outputs, T initial_weight = 0);
+    void connect(const NodeOutputRefs<T> &outputs);
 
     /**
      * @brief outputs
-     * @return vector of node output reference wrappers
+     * @return node output reference wrappers
      */
-    const std::vector<NodeOutputRef<T>>& outputs() const;
+    const NodeOutputRefs<T>& outputs() const;
+
+    /**
+     * @brief nodes
+     * @return nodes of the layer
+     */
+    std::deque<node_type>& nodes();
 
     /**
      * @brief update nodes potentials and calculate responses
@@ -62,8 +76,8 @@ public:
     void update();
 
 private:
-    std::vector<NodeOutputRef<T>> outputs_;
-    std::deque<Node<T, TFunc>> nodes_;
+    NodeOutputRefs<T> outputs_;
+    std::deque<node_type> nodes_;
 };
 
 // template definitions

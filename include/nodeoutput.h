@@ -1,6 +1,8 @@
 #ifndef QLNET_NODEOUTPUT_H_
 #define QLNET_NODEOUTPUT_H_
 
+#include <vector>
+
 namespace qlnet {
 
 /**
@@ -42,6 +44,9 @@ public:
 private:
     const T* value_ptr_;
 };
+
+template<class T>
+using NodeOutputRefs = std::vector<NodeOutputRef<T>>;
 
 } // namespace qlnet
 

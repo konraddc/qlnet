@@ -6,27 +6,69 @@ Node<T, TFunc>::Node() noexcept
 {}
 
 template<typename T, typename TFunc>
+Node<T, TFunc>::Node(std::vector<T>& weights) noexcept
+    : net_(T()),
+      output_(T()),
+      inputs_(nullptr),
+      weights_(std::move(weights))
+{}
+
+template<typename T, typename TFunc>
+Node<T, TFunc>::Node(std::vector<T>&& weights) noexcept
+    : net_(T()),
+      output_(T()),
+      inputs_(nullptr),
+      weights_(std::move(weights))
+{}
+
+template<typename T, typename TFunc>
+Node<T, TFunc>::Node(const std::vector<T>& weights) noexcept
+    : net_(T()),
+      output_(T()),
+      inputs_(nullptr),
+      weights_(weights)
+{}
+
+template<typename T, typename TFunc>
 NodeOutputRef<T> Node<T, TFunc>::output() const
 {
     return output_;
 }
 
 template<typename T, typename TFunc>
-void Node<T, TFunc>::connect(const std::vector<NodeOutputRef<T>> &outputs, T initial_weight)
+void Node<T, TFunc>::connect(const NodeOutputRefs<T> &outputs)
 {
     inputs_ = std::addressof(outputs);
-    weights_.resize(outputs.size(), initial_weight);
+}
+
+template<typename T, typename TFunc>
+void Node<T, TFunc>::init_weights(std::vector<T>& weights)
+{
+    weights_ = std::move(weights);
+}
+
+template<typename T, typename TFunc>
+void Node<T, TFunc>::init_weights(std::vector<T>&& weights)
+{
+    weights_ = std::move(weights);
+}
+
+template<typename T, typename TFunc>
+void Node<T, TFunc>::init_weights(const std::vector<T>& weights)
+{
+    weights_ = weights;
 }
 
 template<typename T, typename TFunc>
 void Node<T, TFunc>::update()
 {
-    if (inputs_ == nullptr) {
-        std::cerr << __PRETTY_FUNCTION__ << " cannot update a node without initialized inputs\n";
+    // TODO: remove this check, leave an assert
+    if (inputs_ == nullptr || (weights_.size() != inputs_->size())) {
+        std::cerr << __PRETTY_FUNCTION__ << " cannot update a node without initialized inputs or weights\n";
         return;
     }
 
-    std::size_t size = weights_.size();
+    std::size_t size = inputs_->size();
     std::size_t n = (size + 7) / 8;
     auto weight_it = weights_.end();
     auto input_it = inputs_->end();
@@ -56,6 +98,7 @@ void Node<T, TFunc>::update()
         } while (--n > 0);
     }
 
+    // TODO: remove this assert
     assert(weight_it == weights_.begin());
     assert(input_it == inputs_->begin());
 

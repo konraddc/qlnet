@@ -20,6 +20,20 @@ public:
      */
     Node() noexcept;
 
+    // TODO: make an alias for vector<T> weigths
+    /**
+     * @brief constructor with initial weights
+     * @param weights to move into a node, left in unspecified state after the call
+     */
+    Node(std::vector<T>& weights) noexcept;
+    Node(std::vector<T>&& weights) noexcept;
+
+    /**
+     * @brief constructor with initial weights
+     * copies initial_weights
+     */
+    Node(const std::vector<T>& initial_weights) noexcept;
+
     /**
      * @brief output
      * @return node output
@@ -29,8 +43,22 @@ public:
     /**
      * @brief assign input
      * @param outputs from other nodes
+     * @param init_weight_func
      */
-    void connect(const std::vector<NodeOutputRef<T>> &outputs, T initial_weight = 0);
+    void connect(const NodeOutputRefs<T> &outputs);
+
+    /**
+     * @brief init_weights
+     * @param weights to move into a node, left in unspecified state after the call
+     */
+    void init_weights(std::vector<T>& weights);
+    void init_weights(std::vector<T>&& weights);
+
+    /**
+     * @brief init_weights
+     * @param weights to copy into the node
+     */
+    void init_weights(const std::vector<T>& weights);
 
     /**
      * @brief update node potential and calculate response
@@ -40,7 +68,7 @@ public:
 private:
     T net_;
     T output_;
-    const std::vector<NodeOutputRef<T>>* inputs_; // TODO: only one input layer for now
+    const NodeOutputRefs<T>* inputs_; // TODO: only one input layer for now
     std::vector<T> weights_;
 };
 

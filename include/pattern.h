@@ -14,6 +14,7 @@ public:
     typedef TInput input_type;
     typedef TOutput output_type;
 
+    // TODO: create move constructor
     /**
      * @brief Pattern initialize with requeried input/output sizes
      * @param input_size
