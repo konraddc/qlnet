@@ -14,7 +14,6 @@ public:
     typedef TInput input_type;
     typedef TOutput output_type;
 
-    // TODO: create move constructor
     /**
      * @brief Pattern initialize with requeried input/output sizes
      * @param input_size
@@ -23,11 +22,31 @@ public:
     Pattern(std::size_t input_size, std::size_t output_size);
 
     /**
+     * @brief Pattern initialize input/output
+     * @param input to copy
+     * @param output to copy
+     */
+    Pattern(const std::vector<input_type> &input, const std::vector<output_type> &output);
+
+    /**
+     * @brief Pattern initialize input/output
+     * @param input to move
+     * @param output to move
+     */
+    Pattern(std::vector<input_type> &input, std::vector<output_type> &output);
+
+    /**
+     * @brief Pattern initialize input/output
+     * @param input to move
+     * @param output to move
+     */
+    Pattern(std::vector<input_type> &&input, std::vector<output_type> &&output);
+
+    /**
      * @brief Append an input value
      * @param input_value
      * @return false if inputs are already full
      */
-
     bool push_input(input_type input_value);
 
     /**

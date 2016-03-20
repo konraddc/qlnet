@@ -45,7 +45,7 @@ private:
     const T* value_ptr_;
 };
 
-template<class T>
+template<typename T>
 using NodeOutputRefs = std::vector<NodeOutputRef<T>>;
 
 } // namespace qlnet

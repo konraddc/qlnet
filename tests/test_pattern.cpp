@@ -37,3 +37,31 @@ TEST_CASE( "Pattern<int> 2 inputs 1 output", "[pattern]" ) {
     REQUIRE_FALSE( pattern.push_output(2) );
 }
 
+TEST_CASE( "Pattern<int> 3 inputs 2 output", "[pattern]" ) {
+    const std::vector<int> input_data = { 1, 2, 3 };
+    const std::vector<int> output_data = { 4, 5 };
+
+    SECTION("move rvalue constructor") {
+        qlnet::Pattern<int> pattern({ 1, 2, 3 }, { 4, 5 });
+        REQUIRE( pattern.input() == input_data );
+        REQUIRE( pattern.output() == output_data );
+    }
+
+    SECTION("move lvalue constructor") {
+        std::vector<int> input = { 1, 2, 3 };
+        std::vector<int> output = { 4, 5 };
+        qlnet::Pattern<int> pattern(input, output);
+        REQUIRE( pattern.input() == input_data );
+        REQUIRE( pattern.output() == output_data );
+        REQUIRE_FALSE( input == input_data );
+        REQUIRE_FALSE( output == output_data );
+    }
+
+    SECTION("copy i/o constructor") {
+        const std::vector<int> input = { 1, 2, 3 };
+        const std::vector<int> output = { 4, 5 };
+        qlnet::Pattern<int> pattern(input, output);
+        REQUIRE( pattern.input() == input_data );
+        REQUIRE( pattern.output() == output_data );
+    }
+}

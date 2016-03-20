@@ -12,7 +12,7 @@ namespace qlnet {
 // TODO: consider a dynamic array instead
 // Any container that doesn't reallocate elements is good
 // deque is big for really small amount of nodes
-template<class TNode>
+template<typename TNode>
 using NodeContainer = std::deque<TNode>;
 
 template<typename T>

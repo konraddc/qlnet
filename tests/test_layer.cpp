@@ -7,10 +7,7 @@
 #include "pattern.h"
 
 TEST_CASE( "InputLayer", "[layer]" ) {
-    qlnet::Pattern<float, int> pattern(3, 1);
-    pattern.push_input(1.f);
-    pattern.push_input(2.f);
-    pattern.push_input(3.f);
+    qlnet::Pattern<float, int> pattern({ 1.f, 2.f, 3.f }, { 1 });
     qlnet::InputLayer<qlnet::Pattern<float, int>::input_type> input_layer(pattern.input_size());
 
     input_layer.set_input(pattern.input());

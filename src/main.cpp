@@ -11,6 +11,5 @@ int main(int argc, char** argv)
     else
         std::cout << "patters#: " << patterns->size() << " inputs#: " << patterns->input_size() << " outputs#: " << patterns->output_size() << "\n";
 
-    std::cout << "Hello World!" << std::endl;
     return 0;
 }
