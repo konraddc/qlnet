@@ -22,17 +22,17 @@ public:
 
     // TODO: make an alias for vector<T> weigths
     /**
-     * @brief constructor with initial weights
+     * @brief construct Node with initial weights
      * @param weights to move into a node, left in unspecified state after the call
      */
-    Node(std::vector<T>& weights) noexcept;
-    Node(std::vector<T>&& weights) noexcept;
+    Node(std::vector<T> &weights) noexcept;
+    Node(std::vector<T> &&weights) noexcept;
 
     /**
-     * @brief constructor with initial weights
-     * copies initial_weights
+     * @brief construct Node with initial weights
+     * @param weights to copy into a node
      */
-    Node(const std::vector<T>& initial_weights) noexcept;
+    Node(const std::vector<T> &weights) noexcept;
 
     /**
      * @brief output
@@ -51,14 +51,14 @@ public:
      * @brief init_weights
      * @param weights to move into a node, left in unspecified state after the call
      */
-    void init_weights(std::vector<T>& weights);
-    void init_weights(std::vector<T>&& weights);
+    void init_weights(std::vector<T> &weights);
+    void init_weights(std::vector<T> &&weights);
 
     /**
      * @brief init_weights
      * @param weights to copy into the node
      */
-    void init_weights(const std::vector<T>& weights);
+    void init_weights(const std::vector<T> &weights);
 
     /**
      * @brief update node potential and calculate response

@@ -6,7 +6,7 @@ Node<T, TFunc>::Node() noexcept
 {}
 
 template<typename T, typename TFunc>
-Node<T, TFunc>::Node(std::vector<T>& weights) noexcept
+Node<T, TFunc>::Node(std::vector<T> &weights) noexcept
     : net_(T()),
       output_(T()),
       inputs_(nullptr),
@@ -14,7 +14,7 @@ Node<T, TFunc>::Node(std::vector<T>& weights) noexcept
 {}
 
 template<typename T, typename TFunc>
-Node<T, TFunc>::Node(std::vector<T>&& weights) noexcept
+Node<T, TFunc>::Node(std::vector<T> &&weights) noexcept
     : net_(T()),
       output_(T()),
       inputs_(nullptr),
@@ -22,7 +22,7 @@ Node<T, TFunc>::Node(std::vector<T>&& weights) noexcept
 {}
 
 template<typename T, typename TFunc>
-Node<T, TFunc>::Node(const std::vector<T>& weights) noexcept
+Node<T, TFunc>::Node(const std::vector<T> &weights) noexcept
     : net_(T()),
       output_(T()),
       inputs_(nullptr),
@@ -42,19 +42,19 @@ void Node<T, TFunc>::connect(const NodeOutputRefs<T> &outputs)
 }
 
 template<typename T, typename TFunc>
-void Node<T, TFunc>::init_weights(std::vector<T>& weights)
+void Node<T, TFunc>::init_weights(std::vector<T> &weights)
 {
     weights_ = std::move(weights);
 }
 
 template<typename T, typename TFunc>
-void Node<T, TFunc>::init_weights(std::vector<T>&& weights)
+void Node<T, TFunc>::init_weights(std::vector<T> &&weights)
 {
     weights_ = std::move(weights);
 }
 
 template<typename T, typename TFunc>
-void Node<T, TFunc>::init_weights(const std::vector<T>& weights)
+void Node<T, TFunc>::init_weights(const std::vector<T> &weights)
 {
     weights_ = weights;
 }

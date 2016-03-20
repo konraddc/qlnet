@@ -9,10 +9,18 @@
 
 namespace qlnet {
 
+// TODO: consider a dynamic array instead
+// Any container that doesn't reallocate elements is good
+// deque is big for really small amount of nodes
+template<class TNode>
+using NodeContainer = std::deque<TNode>;
+
 template<typename T>
 class InputLayer
 {
 public:
+    typedef InputNode<T> node_type;
+
     /**
      * @brief constructor
      * @param input_size number of input elements
@@ -24,7 +32,7 @@ public:
      * @brief set_input
      * @param input new input
      */
-    void set_input(const std::vector<T>& input);
+    void set_input(const std::vector<T> &input);
 
     /**
      * @brief outputs
@@ -34,10 +42,7 @@ public:
 
 private:
     NodeOutputRefs<T> outputs_;
-    // TODO: consider a dynamic array instead
-    // Any container that doesn't reallocate elements is good
-    // deque is big for really small amount of nodes
-    std::deque<InputNode<T>> nodes_;
+    NodeContainer<node_type> nodes_;
 };
 
 template<typename T, typename TFunc>
@@ -62,13 +67,13 @@ public:
      * @brief outputs
      * @return node output reference wrappers
      */
-    const NodeOutputRefs<T>& outputs() const;
+    const NodeOutputRefs<T> &outputs() const;
 
     /**
      * @brief nodes
      * @return nodes of the layer
      */
-    std::deque<node_type>& nodes();
+    NodeContainer<node_type> &nodes();
 
     /**
      * @brief update nodes potentials and calculate responses
@@ -77,7 +82,7 @@ public:
 
 private:
     NodeOutputRefs<T> outputs_;
-    std::deque<node_type> nodes_;
+    NodeContainer<node_type> nodes_;
 };
 
 // template definitions

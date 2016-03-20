@@ -48,7 +48,7 @@ auto Layer<T, TFunc>::outputs() const -> const NodeOutputRefs<T>&
 }
 
 template<typename T, typename TFunc>
-auto Layer<T, TFunc>::nodes() -> std::deque<node_type>&
+auto Layer<T, TFunc>::nodes() -> NodeContainer<node_type>&
 {
     return nodes_;
 }
