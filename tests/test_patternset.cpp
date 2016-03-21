@@ -56,7 +56,6 @@ TEST_CASE( "PatternSet<int> \"or\"", "[patternset]" ) {
     CHECK( pattern_set[3].output_at(0) == 1);
 }
 
-
 TEST_CASE( "PatternSet<int> \"xor\"", "[patternset]" ) {
     qlnet::PatternSet<int> pattern_set;
 

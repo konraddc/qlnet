@@ -48,6 +48,9 @@ private:
 template<typename T>
 using NodeOutputRefs = std::vector<NodeOutputRef<T>>;
 
+// template definitions
+#include "nodeoutput.inc"
+
 } // namespace qlnet
 
 #endif // QLNET_NODEOUTPUT_H_

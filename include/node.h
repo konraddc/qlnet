@@ -43,7 +43,6 @@ public:
     /**
      * @brief assign input
      * @param outputs from other nodes
-     * @param init_weight_func
      */
     void connect(const NodeOutputRefs<T> &outputs);
 

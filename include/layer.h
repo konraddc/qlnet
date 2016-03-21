@@ -16,7 +16,19 @@ template<typename TNode>
 using NodeContainer = std::deque<TNode>;
 
 template<typename T>
-class InputLayer
+class AbstractLayer
+{
+public:
+    AbstractLayer() noexcept = default;
+    AbstractLayer(AbstractLayer&&) = delete;
+    AbstractLayer(const AbstractLayer&) = delete;
+    AbstractLayer& operator=(const AbstractLayer&) = delete;
+
+    virtual const NodeOutputRefs<T>& output() const = 0;
+};
+
+template<typename T>
+class InputLayer : public AbstractLayer<T>
 {
 public:
     typedef InputNode<T> node_type;
@@ -38,7 +50,7 @@ public:
      * @brief outputs
      * @return vector of node output reference wrappers
      */
-    const NodeOutputRefs<T>& outputs() const;
+    virtual const NodeOutputRefs<T>& output() const override;
 
 private:
     NodeOutputRefs<T> outputs_;
@@ -46,7 +58,7 @@ private:
 };
 
 template<typename T, typename TFunc>
-class Layer
+class Layer : public AbstractLayer<T>
 {
 public:
     typedef Node<T, TFunc> node_type;
@@ -61,13 +73,13 @@ public:
      * @brief assign input layer
      * @param outputs from other layer
      */
-    void connect(const NodeOutputRefs<T> &outputs);
+    void connect(const NodeOutputRefs<T> &output);
 
     /**
      * @brief outputs
      * @return node output reference wrappers
      */
-    const NodeOutputRefs<T> &outputs() const;
+    virtual const NodeOutputRefs<T> &output() const override;
 
     /**
      * @brief nodes

@@ -19,7 +19,7 @@ void InputLayer<T>::set_input(const std::vector<T>& input)
 }
 
 template<typename T>
-auto InputLayer<T>::outputs() const -> const NodeOutputRefs<T>&
+auto InputLayer<T>::output() const -> const NodeOutputRefs<T>&
 {
     return outputs_;
 }
@@ -42,7 +42,7 @@ void Layer<T, TFunc>::connect(const NodeOutputRefs<T> &outputs)
 }
 
 template<typename T, typename TFunc>
-auto Layer<T, TFunc>::outputs() const -> const NodeOutputRefs<T>&
+auto Layer<T, TFunc>::output() const -> const NodeOutputRefs<T>&
 {
     return outputs_;
 }

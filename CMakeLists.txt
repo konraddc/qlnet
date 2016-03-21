@@ -4,12 +4,13 @@ project(qlnet)
 set(SRC_LIST
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/nodeoutput.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/nodeoutput.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/nodeoutput.inc
     ${CMAKE_CURRENT_SOURCE_DIR}/include/transferfunc.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/node.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/node.inc
     ${CMAKE_CURRENT_SOURCE_DIR}/include/layer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/layer.inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/net.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/pattern.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/pattern.inc
     ${CMAKE_CURRENT_SOURCE_DIR}/include/patternset.h
@@ -19,7 +20,8 @@ set(SRC_LIST
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
-#set_property(TARGET ${PROJECT_NAME} APPEND_STRING PROPERTY COMPILE_FLAGS -Wno-undefined-inline)
+set_property(TARGET ${PROJECT_NAME} APPEND_STRING PROPERTY COMPILE_FLAGS " -ggdb")
+set_property(TARGET ${PROJECT_NAME} APPEND_STRING PROPERTY COMPILE_FLAGS " -O1")
 
 set(PROJECT_INCLUDE_DIR include)
 include_directories("${PROJECT_INCLUDE_DIR}")
