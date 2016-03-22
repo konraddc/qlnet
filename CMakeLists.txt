@@ -11,6 +11,7 @@ set(SRC_LIST
     ${CMAKE_CURRENT_SOURCE_DIR}/include/layer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/layer.inc
     ${CMAKE_CURRENT_SOURCE_DIR}/include/net.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/net.inc
     ${CMAKE_CURRENT_SOURCE_DIR}/include/pattern.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/pattern.inc
     ${CMAKE_CURRENT_SOURCE_DIR}/include/patternset.h

@@ -60,6 +60,20 @@ void Node<T, TFunc>::init_weights(const std::vector<T> &weights)
 }
 
 template<typename T, typename TFunc>
+template<typename Rand>
+void Node<T, TFunc>::randomize_weights(Rand rand)
+{
+    if (inputs_ == nullptr) {
+        std::cerr << __PRETTY_FUNCTION__ << " cannot randomize weights without initialized inputs\n";
+        return;
+    }
+
+    for (int i = 0; i < inputs_->size(); ++i) {
+        weights_.push_back(rand());
+    }
+}
+
+template<typename T, typename TFunc>
 void Node<T, TFunc>::update()
 {
     // TODO: remove this check, leave an assert

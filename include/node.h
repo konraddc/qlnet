@@ -60,6 +60,13 @@ public:
     void init_weights(const std::vector<T> &weights);
 
     /**
+     * @brief randomize_weights
+     * @param rand function returning random value
+     */
+    template<typename Rand>
+    void randomize_weights(Rand rand);
+
+    /**
      * @brief update node potential and calculate response
      */
     void update();

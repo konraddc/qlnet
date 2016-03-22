@@ -25,7 +25,7 @@ auto InputLayer<T>::output() const -> const NodeOutputRefs<T>&
 }
 
 template<typename T, typename TFunc>
-Layer<T, TFunc>::Layer(std::size_t node_count)
+HiddenLayer<T, TFunc>::HiddenLayer(std::size_t node_count)
     : nodes_(node_count)
 {
     for (const node_type&node : nodes_) {
@@ -34,7 +34,7 @@ Layer<T, TFunc>::Layer(std::size_t node_count)
 }
 
 template<typename T, typename TFunc>
-void Layer<T, TFunc>::connect(const NodeOutputRefs<T> &outputs)
+void HiddenLayer<T, TFunc>::connect(const NodeOutputRefs<T> &outputs)
 {
     for (node_type &node : nodes_) {
         node.connect(outputs);
@@ -42,19 +42,19 @@ void Layer<T, TFunc>::connect(const NodeOutputRefs<T> &outputs)
 }
 
 template<typename T, typename TFunc>
-auto Layer<T, TFunc>::output() const -> const NodeOutputRefs<T>&
+auto HiddenLayer<T, TFunc>::output() const -> const NodeOutputRefs<T>&
 {
     return outputs_;
 }
 
 template<typename T, typename TFunc>
-auto Layer<T, TFunc>::nodes() -> NodeContainer<node_type>&
+auto HiddenLayer<T, TFunc>::nodes() -> NodeContainer<node_type>&
 {
     return nodes_;
 }
 
 template<typename T, typename TFunc>
-void Layer<T, TFunc>::update()
+void HiddenLayer<T, TFunc>::update()
 {
     for (node_type &node : nodes_) {
         node.update();

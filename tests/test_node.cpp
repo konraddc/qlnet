@@ -4,6 +4,22 @@
 #include "nodeoutput.h"
 #include "transferfunc.h"
 
+template<typename T>
+class WeightRandTest
+{
+public:
+    WeightRandTest(T value)
+        : value_(value)
+    {}
+
+    T operator ()() {
+        return value_;
+    }
+
+private:
+    T value_;
+};
+
 TEST_CASE( "NodeOutput", "[node]" ) {
     float value = 2.42f;
     qlnet::NodeOutputRef<float> node_output(value);
@@ -104,6 +120,15 @@ TEST_CASE( "Node", "[node]" ) {
         node.init_weights(weights);
         node.update();
         REQUIRE( node_output == 10.f );
+    }
+
+    SECTION("rand weights") {
+        qlnet::Node<float, qlnet::TransferFunc<float>::Linear> node;
+        qlnet::NodeOutputRef<float> node_output = node.output();
+        node.connect(inputs);
+        node.randomize_weights(WeightRandTest<float>(1.f));
+        node.update();
+        REQUIRE( node_output == 6.f );
     }
 }
 
