@@ -4,5 +4,7 @@
         <file>SlideDeck.qml</file>
         <file>images/Neuron_Hand-tuned.svg</file>
         <file>images/RobbieRobot.jpg</file>
+        <file>Perceptron.qml</file>
+        <file>Input.qml</file>
     </qresource>
 </RCC>

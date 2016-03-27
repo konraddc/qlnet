@@ -31,7 +31,7 @@ Presentation {
     Slide {
         id: slideRobot
         title: "Why Artificial Neural Networks"
-        contentWidth: width - robotImage.width - 20
+        contentWidth: width - imageRobot.width - 20
 //        delayPoints: true
 
         footerText: "Robby The Robot (1956 Forbidden Planet)"
@@ -46,7 +46,7 @@ Presentation {
 
         // TODO: add an animation on position and scale form center big -> right small on first "advance"
         Image {
-            id: robotImage
+            id: imageRobot
             anchors.right: slideRobot.right
             source: "qrc:/images/RobbieRobot.jpg"
         }
@@ -91,22 +91,22 @@ Presentation {
         ]
 
         Image {
-            id: neuronImage
+            id: imageNeuron
             width: slideBiologicalNeuron.width * (1 - slideBiologicalNeuron.imageContentRatio)
             height: slideBiologicalNeuron.height
             fillMode: Image.PreserveAspectFit
             anchors.right: slideBiologicalNeuron.right
             source: "qrc:/images/Neuron_Hand-tuned.svg"
-            property int yOffset: (neuronImage.height - neuronImage.paintedHeight) / 2
+            property int yOffset: (imageNeuron.height - imageNeuron.paintedHeight) / 2
 
-            Text { x:  77; y: neuronImage.yOffset +  9; text: "<b>Dendrite</b>" }
-            Text { x: 195; y: neuronImage.yOffset + 100; text: "Soma" }
-            Text { x:  25; y: neuronImage.yOffset + 290; text: "<b>Nucleus</b>" }
-            Text { x: 275; y: neuronImage.yOffset + 178; text: "<b>Axon</b>" }
-            Text { x: 292; y: neuronImage.yOffset + 268; text: "Myelin sheath" }
-            Text { x: 323; y: neuronImage.yOffset +  90; text: "Node of Ranvier" }
-            Text { x: 410; y: neuronImage.yOffset + 231; text: "Schwann cell" }
-            Text { x: 460; y: neuronImage.yOffset +  33; text: "Axon terminal" }
+            Text { x:  77; y: imageNeuron.yOffset +  9; text: "<b>Dendrite</b>" }
+            Text { x: 195; y: imageNeuron.yOffset + 100; text: "Soma" }
+            Text { x:  25; y: imageNeuron.yOffset + 290; text: "<b>Nucleus</b>" }
+            Text { x: 275; y: imageNeuron.yOffset + 178; text: "<b>Axon</b>" }
+            Text { x: 292; y: imageNeuron.yOffset + 268; text: "Myelin sheath" }
+            Text { x: 323; y: imageNeuron.yOffset +  90; text: "Node of Ranvier" }
+            Text { x: 410; y: imageNeuron.yOffset + 231; text: "Schwann cell" }
+            Text { x: 460; y: imageNeuron.yOffset +  33; text: "Axon terminal" }
         }
 
         footerText: "https://en.wikipedia.org/wiki/Neuron"
@@ -118,6 +118,34 @@ Presentation {
     Slide {
         id: slideArtificialNeuron
         title: "Artificial Neuron (Perceptron)"
+
+        Perceptron {
+            id: perceptron
+            anchors.horizontalCenter: slideArtificialNeuron.horizontalCenter
+
+            Input {
+                start: Qt.point(200, perceptron.bodyOrigin.y - 100)
+                lineWidth: perceptron.border * 2
+            }
+
+            Input {
+                start: Qt.point(200, perceptron.bodyOrigin.y - 40)
+                lineWidth: perceptron.border * 2
+            }
+
+            Input {
+                start: Qt.point(200, perceptron.bodyOrigin.y + 40)
+                lineWidth: perceptron.border * 2
+            }
+
+            Input {
+                start: Qt.point(200, perceptron.bodyOrigin.y + 100)
+                lineWidth: perceptron.border * 2
+            }
+
+            Rectangle {
+            }
+        }
 
 
         notes: "The perceptron is a mathematical model of a biological neuron.
