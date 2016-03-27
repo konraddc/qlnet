@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>SlideDeck.qml</file>
+        <file>images/Neuron_Hand-tuned.svg</file>
+        <file>images/RobbieRobot.jpg</file>
+    </qresource>
+</RCC>
