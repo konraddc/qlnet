@@ -8,9 +8,10 @@ Item {
     property int radius: 75
     property int border: 2
     property point bodyOrigin: Qt.point(body.x + body.width / 2, body.y + body.height / 2);
-    property point output: axon.TopRight // TODO: why it doesn't work?
+    property point output: Qt.point(axon.x + axon.width, axon.y)
 
-    property int _numInputs
+    property var _inputs: []
+    property int _numInputs: 0
 
     function inputPos(input) {
         if (input >= _numInputs)
@@ -29,12 +30,12 @@ Item {
         return Qt.point(bodyOrigin.x + x, bodyOrigin.y + y)
     }
 
-    Rectangle {
-        id: todoRemoveMe
-        border.width: 1
-        border.color: "light gray"
-        anchors.fill: parent
-    }
+//    Rectangle {
+//        id: todoRemoveMe
+//        border.width: 1
+//        border.color: "light gray"
+//        anchors.fill: parent
+//    }
 
     Rectangle {
         id: body
@@ -75,20 +76,20 @@ Item {
     }
 
     Component.onCompleted: {
-        var inputs = []
         for (var i = 0; i < root.children.length; ++i) {
             var input = root.children[i];
             if (input._isInput) {
-                inputs.push(input);
+                root._inputs.push(input);
                 console.log(input.start)
             }
         }
 
-        root._numInputs = inputs.length
+        root._numInputs = root._inputs.length
 
-        for (var i = 0; i < inputs.length; ++i) {
-            inputs[i]._end = root.inputPos(i)
-            console.log(inputs[i].start, inputs[i]._end)
+        for (var i = 0; i < root._inputs.length; ++i) {
+            root._inputs[i]._end = root.inputPos(i)
+            root._inputs[i]._index = i;
+            console.log(root._inputs[i].start, root._inputs[i]._end)
         }
     }
 }

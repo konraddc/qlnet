@@ -116,12 +116,15 @@ Presentation {
     }
 
     Slide {
-        id: slideArtificialNeuron
+        id: slidePerceptron
         title: "Artificial Neuron (Perceptron)"
+        bulletSpacing: 1.2
 
         Perceptron {
             id: perceptron
-            anchors.horizontalCenter: slideArtificialNeuron.horizontalCenter
+            anchors.horizontalCenter: slidePerceptron.horizontalCenter
+
+            radius: 75
 
             Input {
                 start: Qt.point(200, perceptron.bodyOrigin.y - 100)
@@ -143,10 +146,44 @@ Presentation {
                 lineWidth: perceptron.border * 2
             }
 
+            Text {
+                x:390; y: 280
+                text: "Weighted sum"
+                font.pixelSize: 22
+            }
+
+            Text {
+                x:590; y: 120
+                text: "Step function"
+                font.pixelSize: 22
+            }
+
             Rectangle {
+                id: stepFunction
+                x: 590; y: 240
+
+                Text {
+                    y: 0
+                    text: "     ⎧ 1, x ≥ p\nf(x)=⎨\n     ⎩ 0, x < p"
+                    lineHeightMode: Text.FixedHeight
+                    lineHeight: font.pixelSize
+                    font.pixelSize: 22
+                    font.family: " Courier"
+                }
             }
         }
 
+        Text {
+            width: slidePerceptron.contentWidth
+            anchors.top: perceptron.bottom
+            text: "The perceptron calculates the weighted sum of all inputs, then calculates the output using the transfer function as shown above. In multilayer networks this output is fed to other perceptrons."
+            font.pixelSize: slidePerceptron.baseFontSize
+            font.family: slidePerceptron.fontFamily
+            color: slidePerceptron.textColor
+            wrapMode: Text.WordWrap
+            lineHeightMode: Text.FixedHeight
+            lineHeight: slidePerceptron.baseFontSize * slidePerceptron.bulletSpacing
+        }
 
         notes: "The perceptron is a mathematical model of a biological neuron.
                 While in actual neurons the dendrite receives electrical signals from the axons of other neurons,

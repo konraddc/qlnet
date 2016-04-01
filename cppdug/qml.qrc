@@ -6,5 +6,6 @@
         <file>images/RobbieRobot.jpg</file>
         <file>Perceptron.qml</file>
         <file>Input.qml</file>
+        <file>Line.qml</file>
     </qresource>
 </RCC>

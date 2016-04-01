@@ -5,18 +5,39 @@ Item {
     property point start: Qt.point(0, 0)
     property int lineWidth: 2
 
-    property point _end: Qt.point(0, 0)
+    property real value: 0
+    property real weight: 0
+
     property bool _isInput: true
+    property point _end: Qt.point(0, 0)
+    property int _index: 0
 
-    Rectangle {
+    Line {
         id: line
-        x: start.x
-        y: start.y
-        width: Math.sqrt(Math.pow(_end.x - start.x, 2) + Math.pow(_end.y - start.y, 2)) + 1
-        height: root.lineWidth
-        color: "black"
+        start: root.start
+        end: root._end
+        lineWidth: root.lineWidth
 
-        transformOrigin: Item.TopLeft
-        rotation: Math.atan((_end.y - start.y) / (_end.x - start.x)) / Math.PI * 180
+        Text {
+            id: input_value_text
+            x: start.x + 5
+            y: start.y + (line._lineRotation > 0 ? -height - line.lineWidth : height - line.lineWidth)
+            font.family: " Courier"
+            font.pixelSize: 18
+            text: "x" + _index + (root.value == 0 ? "" : " = " + value)
+        }
+
+        Text {
+            id: input_weight_text
+            x: line.end.x - 10 - width
+            y: line.end.y + (line._lineRotation > 0 ? -height - line.lineWidth - 10 : height - line.lineWidth + 10)
+            font.family: " Courier"
+            font.pixelSize: 18
+            text: "w" + _index + (root.value == 0 ? "" : " = " + weight)
+
+            Component.onCompleted: {
+                console.log("line.width = ", line.width)
+            }
+        }
     }
 }
