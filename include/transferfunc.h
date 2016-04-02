@@ -58,7 +58,7 @@ public:
 
         static constexpr T max() {
             return std::numeric_limits<T>::has_infinity
-                    ? -std::numeric_limits<T>::infinity()
+                    ? std::numeric_limits<T>::infinity()
                     : std::numeric_limits<T>::max();
         }
     };
