@@ -4,8 +4,9 @@ import QtQuick.Window 2.0
 Window {
     id: mainWindow
 //    x: Screen.desktopAvailableWidth / 2
-    x: (Screen.desktopAvailableWidth - width) / 2
-    y: (Screen.desktopAvailableHeight - height) / 2
+//    x: (Screen.desktopAvailableWidth - width) / 2
+    x: 50; y: 50
+//    y: (Screen.desktopAvailableHeight - height) / 2
     width: 1280
     height: 720
     visible: true

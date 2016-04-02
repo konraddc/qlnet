@@ -4,8 +4,16 @@
         <file>SlideDeck.qml</file>
         <file>images/Neuron_Hand-tuned.svg</file>
         <file>images/RobbieRobot.jpg</file>
+        <file>images/feed_forward.png</file>
+        <file>images/Hopfield-net.png</file>
+        <file>images/regions_plain.png</file>
+        <file>images/regions_marked.png</file>
+        <file>images/feedForwardXY.png</file>
+        <file>images/hamming.png</file>
         <file>Perceptron.qml</file>
         <file>Input.qml</file>
         <file>Line.qml</file>
+        <file>Table.qml</file>
+        <file>SmallTable.qml</file>
     </qresource>
 </RCC>

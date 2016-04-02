@@ -5,8 +5,8 @@ Item {
     property point start: Qt.point(0, 0)
     property int lineWidth: 2
 
-    property real value: 0
-    property real weight: 0
+    property real value: -2
+    property real weight: -2
 
     property bool _isInput: true
     property point _end: Qt.point(0, 0)
@@ -24,16 +24,18 @@ Item {
             y: start.y + (line._lineRotation > 0 ? -height - line.lineWidth : height - line.lineWidth)
             font.family: " Courier"
             font.pixelSize: 18
-            text: "x" + _index + (root.value == 0 ? "" : " = " + value)
+            text: "x<sub>" + _index + "</sub>" + (root.value < -1 ? "" : " = " + value)
+            textFormat: Text.RichText
         }
 
         Text {
             id: input_weight_text
-            x: line.end.x - 10 - width
-            y: line.end.y + (line._lineRotation > 0 ? -height - line.lineWidth - 10 : height - line.lineWidth + 10)
+            x: line.end.x - width
+            y: line.end.y + (line._lineRotation > 0 ? -height - line.lineWidth - width * 0.25 : height - line.lineWidth + width * 0.2)
             font.family: " Courier"
             font.pixelSize: 18
-            text: "w" + _index + (root.value == 0 ? "" : " = " + weight)
+            text: "w<sub>" + _index + "</sub>" + (root.weight < -1 ? "" : " = " + weight)
+            textFormat: Text.RichText
 
             Component.onCompleted: {
                 console.log("line.width = ", line.width)
